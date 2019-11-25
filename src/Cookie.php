@@ -84,7 +84,8 @@ class Cookie
     public static function destroy($key = '')
     {
         if (isset($_COOKIE[self::$prefix . $key])) {
-            setcookie(self::$prefix . $key, '', time() - 3600, '/');
+            $domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
+            setcookie(self::$prefix . $key, '', time() - 3600, $domain, false);
 
             return true;
         }
